@@ -37,6 +37,13 @@ Each implemented row must eventually contain:
 
 ## MVP Requirements To Break Down First
 
+- OpenID Provider discovery issuer exact-match validation.
+- Discovery metadata honesty for endpoints, grants, response types, scopes,
+  claims, auth methods, and signing algorithms.
+- JWKS public-key publication only.
+- JWKS key selection by `kid`.
+- JWKS fail-closed behavior for unknown keys, unsupported algorithms, malformed
+  keys, and private key leakage.
 - Authorization Endpoint request validation.
 - Authorization Code one-time use and PKCE binding.
 - Token Endpoint authorization-code grant.
@@ -45,7 +52,5 @@ Each implemented row must eventually contain:
 - issuer/mix-up defense.
 - redirect URI exact matching.
 - state and nonce handling.
-- discovery metadata honesty.
-- JWKS public-key publication only.
 - Access Token validation for Resource Servers.
 - audit/log redaction.

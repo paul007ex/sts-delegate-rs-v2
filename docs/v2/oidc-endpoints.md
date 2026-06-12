@@ -3,6 +3,9 @@
 This file uses normative terminology first. Product examples are shown in
 parentheses only.
 
+Detailed live-curl requirements are captured in
+[`requirements/oidc-auth-code-pkce.md`](requirements/oidc-auth-code-pkce.md).
+
 ## Authorization Endpoint
 
 Normative role path:
@@ -93,6 +96,25 @@ Client/RP or Resource Server -> JWKS Endpoint
 JWKS publishes public verification keys only. It must never expose private key
 members.
 
+Requirements captured from the live Okta tenant:
+
+- `jwks_uri` from discovery must resolve to a JSON Web Key Set.
+- Each active signing key needs enough public metadata for validation, including
+  `kty`, `kid`, public key parameters, and signing intent such as `use=sig`.
+- ID Tokens must include a JOSE header `kid` that selects a public key from
+  JWKS.
+- Discovery `id_token_signing_alg_values_supported` must match algorithms the
+  runtime actually uses and accepts.
+- Verifiers must fail closed for unknown `kid`, unsupported `alg`, `alg=none`,
+  malformed keys, or private key material appearing in JWKS.
+- JWKS cache headers must be compatible with key rotation and overlap windows.
+
+Live tenant command:
+
+```bash
+curl -i -sS "https://trial-5395738.okta.com/oauth2/aus13u46is3QfakEx698/v1/keys"
+```
+
 ## Discovery
 
 OIDC Provider metadata:
@@ -105,6 +127,27 @@ OAuth Authorization Server metadata:
 
 Discovery is a contract. Do not advertise endpoints, grants, algorithms, auth
 methods, response types, or token types unless runtime behavior enforces them.
+
+Requirements captured from the live Okta tenant:
+
+- The configuration response must be JSON and return the issuer, endpoint URLs,
+  supported response types, grants, scopes, claims, signing algorithms, and PKCE
+  methods.
+- The returned `issuer` must exactly match the issuer URL used to retrieve the
+  discovery document.
+- The Client/Relying Party must not use discovery metadata if issuer validation
+  fails.
+- Discovery must distinguish server capability from per-client authorization.
+  For example, a server may advertise Device Authorization or Dynamic Client
+  Registration while a specific Client is not allowed to use it.
+- Cache headers are allowed, but metadata changes must remain compatible with
+  key rotation and endpoint rollout.
+
+Live tenant command:
+
+```bash
+curl -i -sS "https://trial-5395738.okta.com/oauth2/aus13u46is3QfakEx698/.well-known/openid-configuration"
+```
 
 ## Endpoint/Token Confusion Rules
 

@@ -42,6 +42,9 @@ Do not use deployment examples as if they were protocol roles.
 - [Architecture](docs/v2/architecture.md)
 - [OIDC endpoints](docs/v2/oidc-endpoints.md)
 - [Conformance tiers](docs/v2/conformance-tiers.md)
+- [OIDC Authorization Code + PKCE requirements](docs/v2/requirements/oidc-auth-code-pkce.md)
+- [OIDC requirements ledger](docs/v2/requirements/index.md)
+- [Reference curl pack](docs/v2/requirements/reference-curls.md)
 - [Issue migration index](docs/v2/issues/source-issue-index.md)
 
 ## Source Backlog
