@@ -32,6 +32,69 @@ These are the direct requirements that apply before any browser login starts.
 | Authorization Server / OpenID Provider | Okta now, `sts-authority` later |
 | Resource Server / Protected Resource | UserInfo, MCP server, API |
 
+## OIDC Connector
+
+This section captures the Client/RP-side connector that talks to the OpenID
+Provider and turns the browser flow into usable login and API material for the
+product.
+
+### Normative Requirements
+
+| Source | Requirement for the connector |
+| --- | --- |
+| OIDC Discovery 1.0 Section 4.3 | The Client/RP MUST validate that the discovered issuer exactly matches the issuer it expects before building any authorization request. |
+| OIDC Core 1.0 Section 3.1.2.1 | The Authorization Request MUST include `scope=openid` for OIDC and MUST carry the parameters the OP validates for the flow. |
+| RFC 7636 Sections 4.2 / 4.3 / 4.5 / 4.6 | The connector MUST generate `code_verifier`, derive `code_challenge=S256`, send the challenge on `/authorize`, and send the verifier on `/token`. |
+| OIDC Core 1.0 Section 3.1.3.7 | The connector MUST validate the ID Token signature and claims before treating login as successful. |
+| RFC 6750 Section 2 | The connector MAY hold or forward the Access Token for downstream resource calls, but it MUST not confuse the Access Token with the ID Token. |
+
+### Swimlane
+
+```text
+1. Discovery
+   Client / Relying Party -> GET /.well-known/openid-configuration -> OpenID Provider
+
+2. Authorization Request
+   Client / Relying Party -> GET /authorize?...state...nonce...code_challenge... -> OpenID Provider
+   User Agent -> login / consent -> OpenID Provider
+
+3. Code Callback
+   OpenID Provider -> redirect_uri?code&state -> Client / Relying Party
+
+4. Token Exchange
+   Client / Relying Party -> POST /token with code + code_verifier -> OpenID Provider
+   OpenID Provider -> ID Token + Access Token -> Client / Relying Party
+
+5. Downstream Use
+   Client / Relying Party -> Access Token -> UserInfo or Resource Server
+```
+
+### Reference Curl Sequence
+
+```bash
+curl -i -sS "https://trial-5395738.okta.com/oauth2/aus13u46is3QfakEx698/.well-known/openid-configuration"
+
+curl -i -sS -L --max-redirs 0 \
+  "https://trial-5395738.okta.com/oauth2/aus13u46is3QfakEx698/v1/authorize?client_id=0oa13u4kntv2ka1al698&response_type=code&scope=openid+profile+email+offline_access&redirect_uri=http%3A%2F%2Flocalhost%3A8055%2Fcallback&state=<state>&nonce=<nonce>&code_challenge=<challenge>&code_challenge_method=S256&resource=https%3A%2F%2Fmcp-gateway&prompt=login"
+
+curl -i -sS -X POST \
+  "https://trial-5395738.okta.com/oauth2/aus13u46is3QfakEx698/v1/token" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -u "<client_id>:<client_secret>" \
+  --data-urlencode "grant_type=authorization_code" \
+  --data-urlencode "code=<authorization_code>" \
+  --data-urlencode "redirect_uri=http://localhost:8055/callback" \
+  --data-urlencode "code_verifier=<original_code_verifier>"
+```
+
+### Evidence To Record
+
+- discovery issuer exact match
+- authorize accepted and redirected to login
+- code captured on loopback callback
+- token exchange returned ID Token and Access Token
+- ID Token validated against JWKS
+
 ## Leg 0 - OpenID Provider Discovery
 
 Command:
