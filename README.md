@@ -42,6 +42,8 @@ Do not use deployment examples as if they were protocol roles.
 - [Architecture](docs/v2/architecture.md)
 - [OIDC endpoints](docs/v2/oidc-endpoints.md)
 - [Conformance tiers](docs/v2/conformance-tiers.md)
+- [Conformance evidence](docs/v2/conformance/README.md)
+- [OAuth 2.1 draft BCP14 ledger](docs/v2/conformance/oauth21-draft15-bcp14-ledger.md)
 - [OIDC Authorization Code + PKCE requirements](docs/v2/requirements/oidc-auth-code-pkce.md)
 - [OIDC requirements ledger](docs/v2/requirements/index.md)
 - [Reference curl pack](docs/v2/requirements/reference-curls.md)

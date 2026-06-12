@@ -1,6 +1,8 @@
 # Conformance Tiers
 
-This is the planning skeleton for the executable conformance ledger.
+This is the planning skeleton for executable conformance evidence. The durable
+OAuth 2.1 draft BCP14 ledger now lives in
+[`conformance/oauth21-draft15-bcp14-ledger.md`](conformance/oauth21-draft15-bcp14-ledger.md).
 
 ## Source Status Checked On 2026-06-12
 
