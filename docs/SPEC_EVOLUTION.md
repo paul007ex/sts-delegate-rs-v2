@@ -1,0 +1,1 @@
+/Users/Shared/claude/sts-delegate-rs-v2/docs/SPEC_EVOLUTION.md

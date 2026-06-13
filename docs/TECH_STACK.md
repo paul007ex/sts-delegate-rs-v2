@@ -1,0 +1,1 @@
+/Users/Shared/claude/sts-delegate-rs-v2/docs/TECH_STACK.md
