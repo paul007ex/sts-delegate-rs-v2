@@ -1,4 +1,4 @@
-/Users/Shared/claude/sts-delegate-rs-v2/docs/USE_CASES.md
+/Users/Shared/claude/quauthz-as/docs/USE_CASES.md
 
 The file is written. Here is what it contains and why each decision was made:
 

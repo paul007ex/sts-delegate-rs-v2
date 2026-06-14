@@ -1,1 +1,1 @@
-/Users/Shared/claude/sts-delegate-rs-v2/docs/TECH_STACK.md
+/Users/Shared/claude/quauthz-as/docs/TECH_STACK.md

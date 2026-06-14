@@ -2,7 +2,7 @@ Now I have a complete picture. Let me write the file.
 
 # Claims and Non-Goals — QuAuthz (sts-authority)
 
-**Product family:** sts-delegate-rs-v2 planning lane
+**Product family:** quauthz-as planning lane
 **Working product name:** sts-authority
 **Status as of 2026-06-13:** Tier 0 STS shipped in `sts-delegate-rs`; Tier 1 Authorization Server planned, no code started
 

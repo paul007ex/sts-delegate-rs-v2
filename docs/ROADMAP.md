@@ -77,7 +77,7 @@ Deliverables:
 - Client registry: `client_id`, `redirect_uris`, grant types, scope allowlist.
 - User model: stable `sub`, TOTP credential, recovery codes, session state.
 - TOTP login and consent flow in browser.
-- Durable SQLite store behind `sts-as-store` abstraction.
+- Durable Postgres store behind `sts-as-store` abstraction.
 - DPoP proof validation at `/token`; `cnf.jkt` binding when DPoP present.
 - ML-DSA-65 default signing for Access Token; opt-in RS256.
 - Signed ID Tokens per OIDC Core.
@@ -139,7 +139,7 @@ Done when:
 
 Goal: add the protocol surfaces required for a production-grade deployment:
 revocation, introspection, Dynamic Client Registration, resource indicators, and
-Postgres storage.
+Postgres storage with application-layer ML-KEM-768 column encryption (breachsafe-crypto-rs).
 
 Target window: 8 weeks after Phase 1.
 
@@ -151,7 +151,7 @@ Deliverables:
   management endpoint.
 - Resource Indicators — RFC 8707 `resource` parameter at `/authorize` and `/token`.
 - Issuer mix-up defense — RFC 9207 `iss` parameter in authorization response.
-- Postgres backend behind `sts-as-store` abstraction; SQLite remains for local dev.
+- Postgres backend behind `sts-as-store` abstraction; in-memory store (as-store-memory) for local dev.
 - Refresh Token rotation with family-based reuse detection and revocation cascade.
 - Security event logging: structured events for every issuance, revocation,
   registration, and authentication event; no raw credential values.
@@ -164,7 +164,7 @@ Key RFCs: RFC 7009, RFC 7662, RFC 7591, RFC 7592, RFC 8707, RFC 9207, RFC 9700.
 
 Risks:
 
-- Postgres migration from SQLite-first schema requires careful abstraction boundary
+- Postgres migration from in-memory schema requires careful abstraction boundary
   in `sts-as-store`; cost is lower if the abstraction is trait-based from Phase 1.
 - RFC 7591 Dynamic Client Registration opens an attack surface (unauthenticated
   client registration); requires rate limiting and initial access token gating before
@@ -183,7 +183,7 @@ Done when:
   introspection.
 - Dynamic Client Registration issues a `client_id` and `registration_access_token`;
   registered client can complete a full PKCE flow.
-- Postgres backend passes the same integration test suite as SQLite.
+- Postgres backend passes the same integration test suite as the in-memory store.
 
 ## Phase 3: High-Security Profile (Tier 3)
 
@@ -202,9 +202,17 @@ Deliverables:
 - mTLS sender-constraining (RFC 8705) — `cnf.x5t#S256` in token when mTLS used.
 - FAPI 2.0 alignment — evaluate open FAPI 2.0 Security Profile requirements;
   file remaining gaps.
+- `breachsafe-pqc-extension` — a `pgrx`-based Postgres extension that loads
+  `breachsafe-crypto-rs` into the Postgres process. Exposes SQL functions
+  (`bs_ml_kem_768_encrypt`, `bs_ml_dsa_65_sign`) so PQC encryption runs at the
+  DB storage boundary as defense-in-depth, independent of application code
+  correctness. Key management: ML-KEM private key lives in a sidecar; never
+  stored in the DB. This is additive to the application-layer ML-KEM-768
+  column encryption already present from Phase 2.
 
 Conformance target: RFC 9126 mandatory clauses; RFC 9101 signed request validation;
-FAPI 2.0 Security Profile gap analysis complete.
+FAPI 2.0 Security Profile gap analysis complete; `breachsafe-pqc-extension` smoke
+test: `SELECT bs_ml_kem_768_encrypt('test', key_id)` round-trips correctly.
 
 Key RFCs: RFC 9126, RFC 9101, JARM, RFC 8705, FAPI 2.0 (openid-financial-api).
 

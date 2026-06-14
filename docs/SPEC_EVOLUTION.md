@@ -1,1 +1,1 @@
-/Users/Shared/claude/sts-delegate-rs-v2/docs/SPEC_EVOLUTION.md
+/Users/Shared/claude/quauthz-as/docs/SPEC_EVOLUTION.md

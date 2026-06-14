@@ -1,7 +1,7 @@
 # Repository Map
 
 This document is the file and directory ownership map for QuAuthz
-(`sts-delegate-rs-v2` / `sts-authority`). It complements the architecture and
+(`quauthz-as` / `sts-authority`). It complements the architecture and
 workspace boundary docs by showing where things live today (planning phase) and
 where new work should go as implementation starts.
 

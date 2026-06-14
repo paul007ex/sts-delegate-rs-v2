@@ -25,7 +25,7 @@ These are copied references, not destructive transfers.
 | [#106](https://github.com/paul007ex/sts-delegate-rs/issues/106) | as-2.0: define scopes, claims, and token mapping catalog |
 | [#105](https://github.com/paul007ex/sts-delegate-rs/issues/105) | as-2.0: define authorization policy rule engine and evaluation order |
 | [#104](https://github.com/paul007ex/sts-delegate-rs/issues/104) | as-2.0: add groups, roles, app assignment, and group claim model |
-| [#103](https://github.com/paul007ex/sts-delegate-rs/issues/103) | v2/prd: define sts-delegate-rs-v2 product roadmap and MVP |
+| [#103](https://github.com/paul007ex/sts-delegate-rs/issues/103) | v2/prd: define quauthz-as product roadmap and MVP |
 | [#101](https://github.com/paul007ex/sts-delegate-rs/issues/101) | as-2.0: add admin API and operator UX boundary |
 | [#100](https://github.com/paul007ex/sts-delegate-rs/issues/100) | as-2.0: define resource policy authorization services model |
 | [#99](https://github.com/paul007ex/sts-delegate-rs/issues/99) | as-2.0: add OAuth Device Authorization Grant for CLI and agent login |

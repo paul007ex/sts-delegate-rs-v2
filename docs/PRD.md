@@ -1,4 +1,4 @@
-/Users/Shared/claude/sts-delegate-rs-v2/PRD.md
+/Users/Shared/claude/quauthz-as/PRD.md
 
 The file is written. It follows the breachsafe-pqvpn-rs PRD structure exactly: Overview paragraph, Product Readiness Rating table with the same 10 dimensions and the 8/10 and 9/10 ladders, Table of Contents, Product Thesis with an ASCII flow diagram, Living Spec Discipline, Target Users, MVP Scope (Tier 1), Non-Goals for MVP, Compliance Tiers table (Tier 0 through Tier 5), Success Metrics, and Open Decisions.
 

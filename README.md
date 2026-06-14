@@ -1,4 +1,4 @@
-# sts-delegate-rs-v2
+# quauthz-as
 
 Planning repository for the Authorization Server v2 track.
 

@@ -68,7 +68,7 @@ Resource Owner         User Agent          Client / RP           QuAuthz AS     
 | Crate | Responsibility |
 |---|---|
 | `sts-as-core` | Authorization Server domain rules, grant state machines, session lifecycle, claims assembly, and policy decisions. No HTTP, no IO, no env reads. |
-| `sts-as-store` | Durable state for users, registered clients, browser sessions, authorization codes, consent/grant records, and refresh-token families. Defines the store trait; SQLite implementation for MVP. |
+| `sts-as-store` | Durable state for users, registered clients, browser sessions, authorization codes, consent/grant records, and refresh-token families. Defines the store trait. Implementations: as-store-memory (dev/test), as-store-redis (auth codes, jti, sessions), as-store-pg (Postgres — refresh token families, ML-KEM-768 column encryption via breachsafe-crypto-rs; Phase 3 adds breachsafe-pqc pgrx extension for DB-layer PQC). |
 | `sts-as-http` | `/authorize`, `/token` (AS grants), `/.well-known/openid-configuration`, `/.well-known/oauth-authorization-server`, `/userinfo`, `/jwks`, `/logout`, and OAuth error responses. Owns the Axum router only. |
 | `sts-as-config` | AS configuration schema, environment resolution, and startup validation. Validates that advertised algorithms, grant types, and endpoints match enforced runtime behavior before the server accepts connections. |
 | `sts-as-cli` | Bootstrap, client/user/admin registration operations, local dev quickstart, and key generation. Operator-facing binary; no runtime HTTP handling. |

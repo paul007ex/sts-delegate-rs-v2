@@ -1,4 +1,4 @@
-/Users/Shared/claude/sts-delegate-rs-v2/docs/v2/ARCHITECTURE.md
+/Users/Shared/claude/quauthz-as/docs/v2/ARCHITECTURE.md
 
 The file is written. Here is what each section contains and why it was shaped that way:
 

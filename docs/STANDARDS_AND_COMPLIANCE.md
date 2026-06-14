@@ -1,7 +1,7 @@
 # Standards And Compliance Matrix
 
 This document tracks standards, RFCs, guidance, and regulatory/control
-frameworks relevant to QuAuthz (sts-delegate-rs-v2 / sts-authority).
+frameworks relevant to QuAuthz (quauthz-as / sts-authority).
 
 Current status: planning artifact. This repo contains PRD and architecture
 documents only. No production Authorization Server has shipped.
@@ -125,9 +125,9 @@ certification claim.
 
 ## Open Issues To Maintain Traceability
 
-- [#44](https://github.com/paul007ex/sts-delegate-rs-v2/issues/44) OAuth 2.1 draft-15 and RFC 9700 baseline.
-- [#45](https://github.com/paul007ex/sts-delegate-rs-v2/issues/45) Strict ID Token validation and UserInfo binding.
-- [#46](https://github.com/paul007ex/sts-delegate-rs-v2/issues/46) Browser-based client and front-channel threat profile.
+- [#44](https://github.com/paul007ex/quauthz-as/issues/44) OAuth 2.1 draft-15 and RFC 9700 baseline.
+- [#45](https://github.com/paul007ex/quauthz-as/issues/45) Strict ID Token validation and UserInfo binding.
+- [#46](https://github.com/paul007ex/quauthz-as/issues/46) Browser-based client and front-channel threat profile.
 
 Future requirements and issues should reference this matrix when they introduce
 standards, compliance, or regulatory claims.

@@ -12,7 +12,7 @@ change; re-verify before publishing any external claim.
 | Dimension | QuAuthz | Okta | Auth0 | Keycloak | AWS Cognito |
 |---|---|---|---|---|---|
 | Cost / deploy model | OSS, self-hosted, zero per-token cost | SaaS, per-MAU pricing; can be expensive at scale | SaaS, per-MAU pricing; free tier limited | OSS, self-hosted; production ops burden is significant | AWS-managed SaaS; per-MAU after free tier |
-| Local-first | Yes — single binary, SQLite, no external service required | No — SaaS; requires internet and Okta org | No — SaaS; requires internet and Auth0 tenant | Partial — self-hosted, but heavy; needs Postgres or MariaDB to run | No — AWS-managed; requires AWS account and region |
+| Local-first | Yes — single binary + Redis + Postgres; local dev uses in-memory store | No — SaaS; requires internet and Okta org | No — SaaS; requires internet and Auth0 tenant | Partial — self-hosted, but heavy; needs Postgres/MariaDB + JVM to run | No — AWS-managed; requires AWS account and region |
 | Passwordless default | Yes — TOTP first; passkeys planned; no password column in MVP schema | Supported as an add-on policy; password DB present by default | Supported; password DB present by default | Supported via SPI; password DB enabled by default | Limited; password DB is the default flow |
 | OAuth 2.1 draft-aligned | Yes — designed against draft-ietf-oauth-v2-1-15; PKCE required for all clients; no legacy implicit flow | Partial — PKCE available; legacy flows still supported; spec alignment varies by product tier | Partial — PKCE available; implicit flow can be enabled | Partial — PKCE available; older OIDC / OAuth 2.0 behavior enabled by default | Partial — PKCE available; legacy grants supported |
 | DPoP support (RFC 9449) | Yes — shipped in Tier 0 STS; wired into AS token endpoint at Tier 1; `cnf.jkt` binding | Preview / beta as of 2025; Okta product timeline | Limited as of 2025 | Not present in mainline as of 2025; experimental extensions exist | Not present as of 2025 |
@@ -50,8 +50,8 @@ story as of mid-2025.
   permission structures.
 
 What Keycloak does not do: native RFC 8693 delegation with `act`, PQC-signed
-tokens, a local quickstart in under 10 minutes (Keycloak requires a full Postgres
-or MariaDB setup in production and has significant JVM startup overhead), or a
+tokens, a local quickstart in under 10 minutes (Keycloak requires a full Postgres/MariaDB
+database and a JVM, adding significant operational overhead), or a
 DPoP enforcement surface. Keycloak's operational complexity is frequently cited as a
 reason teams prefer a managed IdP instead.
 
@@ -64,7 +64,7 @@ simplicity, and the specific delegation use case none of the incumbents address.
   extension, a workaround, or a future roadmap item. Every token exchange produces
   a `sub` + `act` pair; there is no impersonation mode.
 - Local-first means a developer can run a full OAuth 2.1 AS locally with a single
-  binary and SQLite, complete a PKCE flow in a browser, and inspect every token
+  binary (Redis + Postgres; local dev uses in-memory store), complete a PKCE flow in a browser, and inspect every token
   without an internet connection, an AWS account, or an Okta org.
 - PQC-ready from Tier 0. ML-DSA-65 is the default signing algorithm on the STS
   today. It is not a roadmap item added to compete; it is the default.

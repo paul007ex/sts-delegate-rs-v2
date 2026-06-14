@@ -100,11 +100,11 @@ OAuth 2.1 is still a draft as of June 12, 2026, so claims must say
 Tracking issues:
 
 - OAuth 2.1 draft-15 and RFC 9700 baseline:
-  [#44](https://github.com/paul007ex/sts-delegate-rs-v2/issues/44).
+  [#44](https://github.com/paul007ex/quauthz-as/issues/44).
 - Strict ID Token validation and UserInfo binding:
-  [#45](https://github.com/paul007ex/sts-delegate-rs-v2/issues/45).
+  [#45](https://github.com/paul007ex/quauthz-as/issues/45).
 - Browser-based client and front-channel threat profile:
-  [#46](https://github.com/paul007ex/sts-delegate-rs-v2/issues/46).
+  [#46](https://github.com/paul007ex/quauthz-as/issues/46).
 
 ## Success Metrics
 
@@ -120,10 +120,10 @@ Tracking issues:
 
 ## Open Decisions
 
-- Product name: `sts-authority` vs `sts-delegate-rs-v2`.
+- Product name: `sts-authority` vs `quauthz-as`.
 - MVP authentication method: TOTP-first, passkey-first, or staged.
 - JWT Access Token profile vs opaque tokens plus introspection for MVP.
-- SQLite/file store first, or Postgres abstraction from day one.
+- Redis (auth codes, jti, sessions) + Postgres (refresh token families) from day one. Application-layer ML-KEM-768 column encryption via breachsafe-crypto-rs handles encryption at rest. A `breachsafe-pqc` Postgres extension (pgrx-based, Phase 3) will push PQC encryption into the DB process itself as defense-in-depth.
 - DPoP required by default or per-client/resource policy.
 - PQC signing surfaces for MVP: Access Token, ID Token, client assertion, JARM,
   or later.

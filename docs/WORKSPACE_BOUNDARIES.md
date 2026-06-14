@@ -1,7 +1,7 @@
 # Workspace Boundaries
 
 This document defines the crate/package shape for QuAuthz (`sts-authority`, planned
-in `sts-delegate-rs-v2`). The goal is to keep the Authorization Server product
+in `quauthz-as`). The goal is to keep the Authorization Server product
 layered and auditable before code moves from planning to implementation, and to
 prevent the existing STS from being widened into an Authorization Server by accident.
 

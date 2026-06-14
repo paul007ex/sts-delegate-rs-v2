@@ -1,4 +1,4 @@
-/Users/Shared/claude/sts-delegate-rs-v2/docs/v2/REQUIREMENTS_GOVERNANCE.md
+/Users/Shared/claude/quauthz-as/docs/v2/REQUIREMENTS_GOVERNANCE.md
 
 The file is written. It follows the breachsafe-pqvpn-rs model exactly: same section order (Requirement Types table, Capture Rules, Requirement Template, PM Phase Gates, then requirement tables), same column shape (ID | Type | Requirement | Tier | Acceptance evidence | RFC | Issues | Status), and the same pattern of positive+negative test evidence per row.
 

@@ -1009,7 +1009,7 @@ def build_tab12(wb):
 
 def main():
     output_path = (
-        "/Users/Shared/claude/sts-delegate-rs-v2/docs/v2/requirements/"
+        "/Users/Shared/claude/quauthz-as/docs/v2/requirements/"
         "QuAuthz-OAuth21-PQC.xlsx"
     )
 

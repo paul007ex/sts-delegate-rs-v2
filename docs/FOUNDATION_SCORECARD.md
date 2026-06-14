@@ -1,1 +1,1 @@
-/Users/Shared/claude/sts-delegate-rs-v2/FOUNDATION_SCORECARD.md
+/Users/Shared/claude/quauthz-as/FOUNDATION_SCORECARD.md
